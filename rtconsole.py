@@ -11,13 +11,6 @@ from zmq.eventloop.zmqstream import ZMQStream
 
 __author__ = 'mirage007'
 
-ddd = 123
-
-import logging
-logging.basicConfig(filename='test.log',level=0)
-logging.debug("hello")
-#from IPython.kernel.zmq.kernelapp import main
-#main()
 import zmq
 
 class ThreadKernel(Kernel):
@@ -138,33 +131,18 @@ class ThreadIPKernelApp(IPKernelApp):
         sys.stderr.flush()
 
 def setup_app(**kargs):
-    app = ThreadIPKernelApp(**kargs)
-    return app
+    return ThreadIPKernelApp(**kargs)
 
-def start_app(app):
-    app.start()
-
-def startKernelThread(app, namespace):
+def _start_console(app, namespace):
     app.initialize()
     kn = app.kernel
-    namespace.update(kn.shell.user_ns)
-    kn.shell.user_ns = namespace
+    kn.shell.user_ns = namespace.update(kn.shell.user_ns)
     app.start()
 
-app = setup_app()
-#startKernelThread(app, locals())
-a = Thread(target=startKernelThread, args=(app, locals()))
-a.daemon=True
-a.start()
+def start_console(namespace, **kwargs):
+    app = setup_app(**kwargs)
+    a = Thread(target=_start_console, args=(app, namespace))
+    a.daemon = True
+    a.start()
+    return app
 
-time.sleep(5)
-
-connection_file = get_connection_file(app)
-logging.debug('print the connection file is %s' % connection_file)
-
-tt = 0
-while True:
-    tt += 1
-    time.sleep(1)
-#a = Thread(target=startKernel, args=(locals(),))
-#print km.kernel.shell.user_ns['foo']

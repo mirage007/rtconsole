@@ -136,7 +136,8 @@ def setup_app(**kargs):
 def _start_console(app, namespace):
     app.initialize()
     kn = app.kernel
-    kn.shell.user_ns = namespace.update(kn.shell.user_ns)
+    namespace.update(kn.shell.user_ns)
+    kn.shell.user_ns = namespace
     app.start()
 
 def start_console(namespace, **kwargs):
@@ -146,3 +147,15 @@ def start_console(namespace, **kwargs):
     a.start()
     return app
 
+if __name__ == '__main__':
+    import logging
+    app = start_console(locals())
+    time.sleep(5)
+
+    connection_file = get_connection_file(app)
+    logging.debug('print the connection file is %s' % connection_file)
+
+    tt = 0
+    while True:
+        tt += 1
+        time.sleep(1)

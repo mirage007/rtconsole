@@ -146,16 +146,3 @@ def start_console(namespace, **kwargs):
     a.daemon = True
     a.start()
     return app
-
-if __name__ == '__main__':
-    import logging
-    app = start_console(locals())
-    time.sleep(5)
-
-    connection_file = get_connection_file(app)
-    logging.debug('print the connection file is %s' % connection_file)
-
-    tt = 0
-    while True:
-        tt += 1
-        time.sleep(1)

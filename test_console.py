@@ -7,7 +7,7 @@ if __name__ == '__main__':
     import logging
     logging.basicConfig(filename='test.log', level=0)
     app = start_console(locals())
-    #print statements don't work once the console is started as they are routed to the console
+    #print statements won't work as they are now routed to the console
     time.sleep(5)
     #we can optionally save the connection file somewhere, perhaps to be picked up by some other process
     connection_file = get_connection_file(app)
@@ -21,4 +21,4 @@ if __name__ == '__main__':
     while True:
         t += 1
         time.sleep(1)
-        print t # this will print to the console
+        print t # this will print to the ipython console

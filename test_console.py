@@ -18,7 +18,10 @@ if __name__ == '__main__':
 
     #see if you can inpsect tt in the command line and change its value!
     t = 0
+    s = 0
+    hello = lambda x: x**2
+    print 'hello'
     while True:
         t += 1
+        s = hello(t)
         time.sleep(1)
-        print t # this will print to the ipython console

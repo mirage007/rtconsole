@@ -1,6 +1,5 @@
 from IPython.kernel import BlockingKernelClient, get_connection_file, find_connection_file
 
-__author__ = 'mirage007'
 cf= find_connection_file("kernel-305.json")
 client = BlockingKernelClient(connection_file=cf)
 client.load_connection_file()

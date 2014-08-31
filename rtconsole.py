@@ -9,8 +9,6 @@ from IPython.kernel.zmq.ipkernel import Kernel
 import sys
 from zmq.eventloop.zmqstream import ZMQStream
 
-__author__ = 'mirage007'
-
 import zmq
 
 class ThreadKernel(Kernel):

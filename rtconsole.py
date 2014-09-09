@@ -131,16 +131,14 @@ class ThreadIPKernelApp(IPKernelApp):
 def setup_app(**kargs):
     return ThreadIPKernelApp(**kargs)
 
-def _start_console(app, namespace):
+def _start_console(app):
     app.initialize()
-    kn = app.kernel
-    namespace.update(kn.shell.user_ns)
-    kn.shell.user_ns = namespace
     app.start()
 
 def start_console(namespace, **kwargs):
+    kwargs['user_ns'] = namespace
     app = setup_app(**kwargs)
-    a = Thread(target=_start_console, args=(app, namespace))
+    a = Thread(target=_start_console, args=(app, ))
     a.daemon = True
     a.start()
     return app
